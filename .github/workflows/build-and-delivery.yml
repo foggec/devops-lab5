@@ -17,12 +17,13 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ vars.DOCKERHUB_USERNAME }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v6
-        with:
-          push: true
-          tags: ${{ vars.DOCKERHUB_USERNAME }}/dockerlab5:latest
 
+    - name: Build Docker image
+      run: |
+        docker build -t yourusername/repository:latest .
+    - name: Push Docker image
+      run: |
+        docker push yourusername/repository:latest
